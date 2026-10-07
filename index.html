@@ -6,56 +6,82 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.json"><title>FitTrack</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f6f8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#15171a}
-.app{max-width:430px;margin:auto;min-height:100vh;padding-bottom:86px}header{padding:24px 18px 10px}h1{font-size:29px;margin:0 0 4px}h2{font-size:20px;margin:0 0 12px}p{margin:0;color:#737982}
-main{padding:8px 16px}.card{background:#fff;border:1px solid #e7e9ec;border-radius:19px;padding:17px;margin:12px 0;box-shadow:0 2px 8px #00000008}
-.hero{background:#15171a;color:white;border-radius:22px;padding:22px}.hero p{color:#c9ccd0}.btn{border:0;border-radius:13px;padding:14px 16px;font-weight:750;font-size:15px;cursor:pointer}.primary{background:#fff;color:#111;width:100%;margin-top:18px}.dark{background:#111;color:#fff;width:100%;margin-top:12px}.light{background:#eef0f2;color:#111}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#fff;border:1px solid #e7e9ec;border-radius:15px;padding:14px}.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:#737982}
-.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.exercise{padding:14px 0;border-bottom:1px solid #e7e9ec}.exercise:last-child{border:0}.badge{font-size:12px;padding:6px 9px;border-radius:99px;background:#edf8f2;color:#188653;font-weight:700}
-.video{height:180px;border-radius:16px;background:linear-gradient(135deg,#20242a,#60656c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:44px;position:relative}.video small{position:absolute;bottom:9px;left:10px;background:#0009;padding:5px 8px;border-radius:7px;font-size:11px}
-table{width:100%;border-collapse:collapse;margin-top:8px}th,td{padding:8px 4px;border-bottom:1px solid #e7e9ec;text-align:center;font-size:14px}th{font-size:12px;color:#737982}input{width:100%;padding:9px;border:1px solid #e7e9ec;border-radius:9px}
-.timer{text-align:center;padding:16px;border-radius:16px;background:#f0f1f3;margin-top:12px}.timer strong{display:block;font-size:38px;margin:4px}.timer button{margin:4px}
-.progress{height:8px;background:#e7e9ec;border-radius:8px;overflow:hidden}.progress i{display:block;height:100%;background:#111;border-radius:8px}
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;height:72px;background:#fff;border-top:1px solid #e7e9ec;display:flex;justify-content:space-around;align-items:center;z-index:10;padding-bottom:env(safe-area-inset-bottom)}
-nav button{border:0;background:none;color:#777;font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center}nav button.active{color:#111;font-weight:700}.ico{font-size:21px}.hidden{display:none}
+*{box-sizing:border-box}body{margin:0;background:#f5f6f8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#15171a}.app{max-width:430px;margin:auto;min-height:100vh;padding-bottom:86px}header{padding:24px 18px 10px}h1{font-size:29px;margin:0 0 4px}h2{font-size:20px;margin:0 0 12px}h3{font-size:16px;margin:0 0 6px}p{margin:0;color:#737982}.muted{font-size:13px;color:#737982}.card{background:#fff;border:1px solid #e7e9ec;border-radius:19px;padding:17px;margin:12px 0;box-shadow:0 2px 8px #00000008}.hero{background:#15171a;color:white;border-radius:22px;padding:22px}.hero p{color:#c9ccd0}.btn{border:0;border-radius:13px;padding:14px 16px;font-weight:750;font-size:15px;cursor:pointer}.primary{background:#fff;color:#111;width:100%;margin-top:18px}.dark{background:#111;color:#fff;width:100%;margin-top:12px}.light{background:#eef0f2;color:#111}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#fff;border:1px solid #e7e9ec;border-radius:15px;padding:14px}.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:#737982}.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.badge{font-size:12px;padding:6px 9px;border-radius:99px;background:#edf8f2;color:#188653;font-weight:700}.exercise{padding:14px 0;border-bottom:1px solid #e7e9ec}.exercise:last-child{border:0}.video{height:155px;border-radius:16px;background:linear-gradient(135deg,#20242a,#60656c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:44px;position:relative}.video small{position:absolute;bottom:9px;left:10px;background:#0009;padding:5px 8px;border-radius:7px;font-size:11px}.daytabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}.daytabs button{border:1px solid #e1e4e8;background:#fff;border-radius:11px;padding:9px 4px;font-weight:700;font-size:11px}.daytabs button.active{background:#111;color:#fff}.routine-list .exercise{padding:12px 0}.routine-list p{font-size:13px}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{padding:8px 4px;border-bottom:1px solid #e7e9ec;text-align:center;font-size:14px}th{font-size:12px;color:#737982}input[type=number]{width:100%;padding:9px;border:1px solid #e7e9ec;border-radius:9px;font-size:16px}.check{width:22px;height:22px}.timer{text-align:center;padding:16px;border-radius:16px;background:#f0f1f3;margin-top:12px}.timer strong{display:block;font-size:38px;margin:4px}.timer button{margin:4px}.progress{height:8px;background:#e7e9ec;border-radius:8px;overflow:hidden}.progress i{display:block;height:100%;background:#111;border-radius:8px}.history-item{border-top:1px solid #e7e9ec;padding:13px 0}.history-item:first-child{border-top:0}.pill{display:inline-block;padding:5px 8px;background:#eef0f2;border-radius:99px;font-size:11px;font-weight:700;margin-right:5px}.notice{padding:12px;border-radius:13px;background:#f4f5f6;font-size:13px;margin-top:10px}.hidden{display:none}nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;height:72px;background:#fff;border-top:1px solid #e7e9ec;display:flex;justify-content:space-around;align-items:center;z-index:10;padding-bottom:env(safe-area-inset-bottom)}nav button{border:0;background:none;color:#777;font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center}nav button.active{color:#111;font-weight:700}.ico{font-size:21px}
 </style></head>
 <body>
 <div class="app">
 <header><h1>FitTrack</h1><p>Tu entrenamiento. Tu progreso. Tu evolución.</p></header>
 <main id="home">
-<div class="hero"><p>ENTRENAMIENTO DE HOY</p><h2 style="color:white;margin-top:7px">Día 1 — Tren inferior</h2><p>4 ejercicios · 13 series · ~45 min</p><button class="btn primary" onclick="openTrain()">▶ Comenzar entrenamiento</button></div>
-<h2 style="margin-top:22px">Resumen</h2><div class="grid"><div class="stat"><b id="w">0</b><span>Entrenamientos</span></div><div class="stat"><b id="v">0 kg</b><span>Volumen</span></div><div class="stat"><b id="s">0</b><span>Series</span></div><div class="stat"><b id="b">0 kg</b><span>Mejor peso</span></div></div>
-<div class="card"><h2>Próxima evaluación</h2><p>La evaluación de 15 días aparecerá cuando registremos tus primeros entrenamientos.</p></div>
+<div class="hero"><p>ENTRENAMIENTO DE HOY</p><h2 id="todayTitle" style="color:white;margin-top:7px">Día 2 — Hombros + abdomen</h2><p id="todayMeta">6 ejercicios · 17 series · ~65 min</p><button class="btn primary" onclick="openTrain(todayDay)">▶ Comenzar entrenamiento</button></div>
+<h2 style="margin-top:22px">Resumen</h2><div class="grid"><div class="stat"><b id="w">0</b><span>Entrenamientos</span></div><div class="stat"><b id="v">0 kg</b><span>Volumen registrado</span></div><div class="stat"><b id="s">0</b><span>Series</span></div><div class="stat"><b id="b">0 kg</b><span>Mayor carga</span></div></div>
+<div class="card"><h2>Próxima evaluación</h2><p id="evalText">La evaluación de 15 días aparecerá cuando registremos tus primeros entrenamientos.</p></div>
+<div class="card"><h2>Semana</h2><p>Martes: piernas · Miércoles: hombros + abdomen · Jueves: glúteos · Viernes: espalda + brazos + abdomen</p><div class="notice">Cardio: 10 minutos al finalizar cada sesión.</div></div>
 </main>
 
 <main id="train" class="hidden"><button class="btn light" onclick="go('home')">← Volver</button>
-<div class="card"><p id="counter">EJERCICIO 1 DE 4</p><h2 id="ename">Sentadilla con barra</h2><div class="video">▶<small>Video de técnica · próximamente</small></div>
+<div class="card"><p id="counter">EJERCICIO 1 DE 6</p><h2 id="ename">Press de hombros</h2><p class="muted" id="target">3 × 10–15 · descanso 90 s</p><div class="video">▶<small>Video de técnica · próximamente</small></div>
 <p style="margin-top:11px"><b>Último:</b> <span id="prev">Sin registros</span></p>
 <table><thead><tr><th>Serie</th><th>Kg</th><th>Reps</th><th>✓</th></tr></thead><tbody id="sets"></tbody></table>
 <div class="timer">DESCANSO<strong id="clock">01:30</strong><button class="btn light" onclick="timerStart()">▶ Iniciar</button><button class="btn light" onclick="timerReset()">↺</button></div>
-<button class="btn dark" onclick="next()">Siguiente ejercicio →</button></div></main>
+<button class="btn dark" id="nextBtn" onclick="next()">Siguiente ejercicio →</button></div></main>
 
-<main id="routines" class="hidden"><h2>Mis rutinas</h2><div class="card"><div class="row"><div><h2>Día 1 — Tren inferior</h2><p>4 ejercicios · 13 series</p></div><span class="badge">Activa</span></div>
-<div class="exercise"><b>Sentadilla con barra</b><p>3 × 10 · 90 s</p></div><div class="exercise"><b>Hip Thrust</b><p>4 × 10 · 90 s</p></div><div class="exercise"><b>Peso muerto rumano</b><p>3 × 10 · 90 s</p></div><div class="exercise"><b>Prensa de piernas</b><p>3 × 12 · 90 s</p></div>
-<button class="btn dark" onclick="openTrain()">▶ Entrenar esta rutina</button></div><div class="card"><h2>Biblioteca de ejercicios</h2><p>Próximamente: videos, técnica, músculos, errores frecuentes y favoritos.</p></div></main>
+<main id="routines" class="hidden"><h2>Mis rutinas</h2><div class="daytabs" id="dayTabs"></div><div id="routineDetail" class="card"></div><div class="card"><h2>Biblioteca de ejercicios</h2><p>Próximamente: videos, técnica, músculos, errores frecuentes y favoritos.</p></div></main>
 
-<main id="progress" class="hidden"><h2>Mi progreso</h2><div class="card"><p>RENDIMIENTO</p><h2 id="eval">Sin datos todavía</h2><p>Cuando acumulemos entrenamientos, FitTrack analizará volumen, peso, repeticiones y constancia.</p></div><div class="grid"><div class="stat"><b id="ps">0</b><span>Series</span></div><div class="stat"><b id="pv">0 kg</b><span>Volumen</span></div><div class="stat"><b id="pw">0</b><span>Entrenamientos</span></div><div class="stat"><b id="pb">0 kg</b><span>Mejor peso</span></div></div></main>
+<main id="progress" class="hidden"><h2>Progreso</h2><div class="card"><h2>Historial</h2><div id="history"></div></div><div class="card"><h2>Evaluación de 15 días</h2><p id="evalProgress">Completa entrenamientos para construir tu primera evaluación.</p></div></main>
 
-<nav><button onclick="go('home')" class="active" id="n-home"><span class="ico">⌂</span>Inicio</button><button onclick="go('train')" id="n-train"><span class="ico">🏋️</span>Entrenar</button><button onclick="go('routines')" id="n-routines"><span class="ico">☷</span>Rutinas</button><button onclick="go('progress')" id="n-progress"><span class="ico">↗</span>Progreso</button></nav>
+<nav><button id="navHome" class="active" onclick="go('home')"><span class="ico">⌂</span>Inicio</button><button id="navTrain" onclick="openTrain(todayDay)"><span class="ico">▶</span>Entrenar</button><button id="navRoutines" onclick="go('routines')"><span class="ico">▦</span>Rutinas</button><button id="navProgress" onclick="go('progress')"><span class="ico">↗</span>Progreso</button></nav>
 </div>
 <script>
-const ex=[["Sentadilla con barra",3,10],["Hip Thrust",4,10],["Peso muerto rumano",3,10],["Prensa de piernas",3,12]];
-let cur=0,t=90,timer=null;
-const KEY="fittrack_data";
-function get(){return JSON.parse(localStorage.getItem(KEY)||'{"workouts":0,"volume":0,"sets":0,"best":0}')}
-function save(d){localStorage.setItem(KEY,JSON.stringify(d));stats()}
-function stats(){let d=get();["w","pw"].forEach(x=>document.getElementById(x).textContent=d.workouts);["v","pv"].forEach(x=>document.getElementById(x).textContent=Math.round(d.volume)+" kg");["s","ps"].forEach(x=>document.getElementById(x).textContent=d.sets);["b","pb"].forEach(x=>document.getElementById(x).textContent=d.best+" kg")}
-function go(id){document.querySelectorAll("main").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));let n=document.getElementById("n-"+id);if(n)n.classList.add("active");window.scrollTo(0,0);stats()}
-function openTrain(){cur=0;render();go("train")}
-function render(){let e=ex[cur];document.getElementById("counter").textContent=`EJERCICIO ${cur+1} DE ${ex.length}`;document.getElementById("ename").textContent=e[0];let tb=document.getElementById("sets");tb.innerHTML="";for(let i=1;i<=e[1];i++)tb.innerHTML+=`<tr><td>${i}</td><td><input class="kg" type="number" value="40"></td><td><input class="rep" type="number" value="${e[2]}"></td><td><input class="ck" type="checkbox"></td></tr>`;timerReset()}
-function next(){let rows=[...document.querySelectorAll("#sets tr")];if(!rows.every(r=>r.querySelector(".ck").checked)){alert("Completa todas las series antes de continuar.");return}let d=get(),kg=rows.map(r=>+r.querySelector(".kg").value||0),rep=rows.map(r=>+r.querySelector(".rep").value||0),avg=kg.reduce((a,b)=>a+b,0)/kg.length;d.volume+=kg.reduce((a,b,i)=>a+b*rep[i],0);d.sets+=rows.length;d.best=Math.max(d.best,...kg);if(cur<ex.length-1){cur++;render()}else{d.workouts++;save(d);alert("🎉 Entrenamiento guardado.");go("home")}}
-function renderTimer(){document.getElementById("clock").textContent=String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0")}
-function timerStart(){if(timer)return;timer=setInterval(()=>{t--;renderTimer();if(t<=0){clearInterval(timer);timer=null;alert("⏱️ Descanso terminado.")}},1000)}
-function timerReset(){if(timer){clearInterval(timer);timer=null}t=90;renderTimer()}
-if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");stats();
+const routines={
+1:{name:'Piernas',meta:'5 ejercicios · 15 series · ~65 min',exercises:[
+ {name:'Sentadilla',sets:3,min:10,max:15,rest:90,start:25},
+ {name:'Prensa de piernas',sets:3,min:10,max:15,rest:90,start:27},
+ {name:'Extensión de piernas',sets:3,min:10,max:15,rest:75,start:27},
+ {name:'Curl femoral',sets:3,min:10,max:15,rest:75,start:27},
+ {name:'Elevación de pantorrillas',sets:3,min:10,max:15,rest:60,start:''}
+]},
+2:{name:'Hombros + abdomen',meta:'6 ejercicios · 17 series · ~65 min',exercises:[
+ {name:'Press de hombros',sets:3,min:10,max:15,rest:90,start:11},
+ {name:'Elevaciones laterales',sets:3,min:10,max:15,rest:60,start:''},
+ {name:'Reverse fly / pájaros',sets:3,min:10,max:15,rest:60,start:''},
+ {name:'Elevación lateral en polea o máquina',sets:2,min:10,max:15,rest:60,start:''},
+ {name:'Crunch en máquina o polea',sets:3,min:10,max:15,rest:60,start:''},
+ {name:'Plancha',sets:3,min:10,max:15,rest:60,start:''}
+]},
+3:{name:'Glúteos',meta:'5 ejercicios · 16 series · ~65 min',exercises:[
+ {name:'Hip Thrust',sets:4,min:10,max:15,rest:90,start:40},
+ {name:'Peso muerto rumano',sets:3,min:10,max:15,rest:90,start:''},
+ {name:'Patada de glúteo',sets:3,min:10,max:15,rest:75,start:6},
+ {name:'Abducción',sets:3,min:10,max:15,rest:60,start:46},
+ {name:'Puente de glúteo / máquina',sets:3,min:10,max:15,rest:75,start:''}
+]},
+4:{name:'Espalda + brazos + abdomen',meta:'7 ejercicios · 20 series · ~65 min',exercises:[
+ {name:'Jalón al pecho',sets:3,min:10,max:15,rest:90,start:10},
+ {name:'Remo sentado',sets:3,min:10,max:15,rest:90,start:11},
+ {name:'Remo unilateral o máquina',sets:2,min:10,max:15,rest:75,start:''},
+ {name:'Curl de bíceps',sets:3,min:10,max:15,rest:60,start:11},
+ {name:'Tríceps en polea',sets:3,min:10,max:15,rest:60,start:11},
+ {name:'Crunch en máquina o polea',sets:3,min:10,max:15,rest:60,start:''},
+ {name:'Elevación de rodillas / abdomen',sets:3,min:10,max:15,rest:60,start:''}
+]}}
+let data=JSON.parse(localStorage.getItem('fittrack_data_v2')||'{"workouts":[],"version":"V1"}');
+if(!data.workouts)data.workouts=[];
+let selectedDay=2,currentExercise=0,sessionRows=[],timer=null,seconds=90;
+const todayDay=(new Date().getDay()>=2&&new Date().getDay()<=5)?new Date().getDay()-1:1;
+function save(){localStorage.setItem('fittrack_data_v2',JSON.stringify(data));}
+function go(id){['home','train','routines','progress'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));['Home','Train','Routines','Progress'].forEach(x=>document.getElementById('nav'+x).classList.toggle('active',x.toLowerCase()===id));if(id==='home')renderHome();if(id==='routines')renderRoutines();if(id==='progress')renderProgress();}
+function renderHome(){const r=routines[todayDay];document.getElementById('todayTitle').textContent='Día '+todayDay+' — '+r.name;document.getElementById('todayMeta').textContent=r.meta;const w=data.workouts;let vol=0,sets=0,best=0;w.forEach(s=>s.exercises.forEach(e=>e.rows.forEach(row=>{const kg=+row.kg||0,reps=+row.reps||0;if(row.done){vol+=kg*reps;sets++;best=Math.max(best,kg)}})));document.getElementById('w').textContent=w.length;document.getElementById('v').textContent=Math.round(vol)+' kg';document.getElementById('s').textContent=sets;document.getElementById('b').textContent=best+' kg';document.getElementById('evalText').textContent=w.length?'Tienes '+w.length+' entrenamiento(s) guardado(s). La evaluación de 15 días se activará con suficiente historial.':'La evaluación de 15 días aparecerá cuando registremos tus primeros entrenamientos.';}
+function openTrain(day){selectedDay=day||todayDay;currentExercise=0;sessionRows=[];go('train');renderExercise();}
+function renderExercise(){const r=routines[selectedDay],e=r.exercises[currentExercise];document.getElementById('counter').textContent='EJERCICIO '+(currentExercise+1)+' DE '+r.exercises.length;document.getElementById('ename').textContent=e.name;document.getElementById('target').textContent=e.sets+' × '+e.min+'–'+e.max+' · descanso '+e.rest+' s';document.getElementById('nextBtn').textContent=currentExercise===r.exercises.length-1?'Guardar entrenamiento ✓':'Siguiente ejercicio →';const prev=findLast(e.name);document.getElementById('prev').textContent=prev?prev.rows.map((x,i)=>x.done?(x.kg+' kg × '+x.reps):'—').filter(x=>x!=='—').join(' · ')||'Sin series completadas':'Sin registros';const tbody=document.getElementById('sets');tbody.innerHTML='';for(let i=0;i<e.sets;i++){const old=(sessionRows[currentExercise]&&sessionRows[currentExercise][i])||{kg:e.start??'',reps:'',done:false};const tr=document.createElement('tr');tr.innerHTML='<td>'+(i+1)+'</td><td><input type="number" min="0" step="0.5" inputmode="decimal" value="'+old.kg+'" aria-label="Kg"></td><td><input type="number" min="0" max="100" step="1" inputmode="numeric" value="'+old.reps+'" aria-label="Repeticiones"></td><td><input class="check" type="checkbox" '+(old.done?'checked':'')+' aria-label="Serie completada"></td>';tbody.appendChild(tr);}timerReset();}
+function readRows(){const rows=[];document.querySelectorAll('#sets tr').forEach(tr=>{const ins=tr.querySelectorAll('input');rows.push({kg:ins[0].value,reps:ins[1].value,done:ins[2].checked});});sessionRows[currentExercise]=rows;}
+function next(){readRows();const e=routines[selectedDay].exercises[currentExercise];if(!sessionRows[currentExercise].some(r=>r.done)){alert('Marca al menos una serie como completada antes de continuar.');return;}if(currentExercise<routines[selectedDay].exercises.length-1){currentExercise++;renderExercise();}else{finishWorkout();}}
+function finishWorkout(){const r=routines[selectedDay];data.workouts.unshift({date:new Date().toISOString(),day:selectedDay,routine:r.name,version:'V1',cardioMinutes:10,exercises:r.exercises.map((e,i)=>({name:e.name,rows:sessionRows[i]||[]}))});save();alert('Entrenamiento guardado correctamente.');go('progress');}
+function findLast(name){for(const w of data.workouts){const e=w.exercises.find(x=>x.name===name);if(e&&e.rows.some(r=>r.done))return e;}return null;}
+function renderRoutines(){const tabs=document.getElementById('dayTabs');tabs.innerHTML='';for(let d=1;d<=4;d++){const b=document.createElement('button');b.textContent='Día '+d;b.className=d===selectedDay?'active':'';b.onclick=()=>{selectedDay=d;renderRoutines();};tabs.appendChild(b);}const r=routines[selectedDay];document.getElementById('routineDetail').innerHTML='<div class="row"><div><h2>Día '+selectedDay+' — '+r.name+'</h2><p>'+r.meta+'</p></div><span class="badge">V1</span></div><div class="routine-list">'+r.exercises.map(e=>'<div class="exercise"><b>'+e.name+'</b><p>'+e.sets+' × '+e.min+'–'+e.max+' · '+e.rest+' s descanso</p></div>').join('')+'</div><div class="notice">Cardio: 10 minutos al finalizar.</div><button class="btn dark" onclick="openTrain('+selectedDay+')">▶ Entrenar este día</button>';}
+function renderProgress(){const box=document.getElementById('history');if(!data.workouts.length){box.innerHTML='<p>Aún no hay entrenamientos guardados.</p>';}else{box.innerHTML=data.workouts.slice(0,10).map(w=>{const date=new Date(w.date).toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});const done=w.exercises.reduce((n,e)=>n+e.rows.filter(x=>x.done).length,0);return '<div class="history-item"><b>'+date+' · Día '+w.day+' — '+w.routine+'</b><p><span class="pill">'+w.version+'</span><span class="pill">'+done+' series</span><span class="pill">Cardio '+w.cardioMinutes+' min</span></p></div>';}).join('');}const since=data.workouts.length?Math.min(data.workouts.length,15):0;document.getElementById('evalProgress').textContent=since?'Hay '+since+' sesión(es) registradas. Al completar 15 días de seguimiento revisaremos la V1 y definiremos ajustes para V2.':'Completa entrenamientos para construir tu primera evaluación.';}
+function timerStart(){if(timer)return;timer=setInterval(()=>{seconds--;updateClock();if(seconds<=0){clearInterval(timer);timer=null;seconds=0;updateClock();}},1000);}
+function timerReset(){if(timer){clearInterval(timer);timer=null;}seconds=90;updateClock();}
+function updateClock(){document.getElementById('clock').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');}
+renderHome();renderRoutines();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
 </script></body></html>
