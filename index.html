@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json"><title>FitTrack</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f6f8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#15171a}
+.app{max-width:430px;margin:auto;min-height:100vh;padding-bottom:86px}header{padding:24px 18px 10px}h1{font-size:29px;margin:0 0 4px}h2{font-size:20px;margin:0 0 12px}p{margin:0;color:#737982}
+main{padding:8px 16px}.card{background:#fff;border:1px solid #e7e9ec;border-radius:19px;padding:17px;margin:12px 0;box-shadow:0 2px 8px #00000008}
+.hero{background:#15171a;color:white;border-radius:22px;padding:22px}.hero p{color:#c9ccd0}.btn{border:0;border-radius:13px;padding:14px 16px;font-weight:750;font-size:15px;cursor:pointer}.primary{background:#fff;color:#111;width:100%;margin-top:18px}.dark{background:#111;color:#fff;width:100%;margin-top:12px}.light{background:#eef0f2;color:#111}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#fff;border:1px solid #e7e9ec;border-radius:15px;padding:14px}.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:#737982}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.exercise{padding:14px 0;border-bottom:1px solid #e7e9ec}.exercise:last-child{border:0}.badge{font-size:12px;padding:6px 9px;border-radius:99px;background:#edf8f2;color:#188653;font-weight:700}
+.video{height:180px;border-radius:16px;background:linear-gradient(135deg,#20242a,#60656c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:44px;position:relative}.video small{position:absolute;bottom:9px;left:10px;background:#0009;padding:5px 8px;border-radius:7px;font-size:11px}
+table{width:100%;border-collapse:collapse;margin-top:8px}th,td{padding:8px 4px;border-bottom:1px solid #e7e9ec;text-align:center;font-size:14px}th{font-size:12px;color:#737982}input{width:100%;padding:9px;border:1px solid #e7e9ec;border-radius:9px}
+.timer{text-align:center;padding:16px;border-radius:16px;background:#f0f1f3;margin-top:12px}.timer strong{display:block;font-size:38px;margin:4px}.timer button{margin:4px}
+.progress{height:8px;background:#e7e9ec;border-radius:8px;overflow:hidden}.progress i{display:block;height:100%;background:#111;border-radius:8px}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;height:72px;background:#fff;border-top:1px solid #e7e9ec;display:flex;justify-content:space-around;align-items:center;z-index:10;padding-bottom:env(safe-area-inset-bottom)}
+nav button{border:0;background:none;color:#777;font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center}nav button.active{color:#111;font-weight:700}.ico{font-size:21px}.hidden{display:none}
+</style></head>
+<body>
+<div class="app">
+<header><h1>FitTrack</h1><p>Tu entrenamiento. Tu progreso. Tu evolución.</p></header>
+<main id="home">
+<div class="hero"><p>ENTRENAMIENTO DE HOY</p><h2 style="color:white;margin-top:7px">Día 1 — Tren inferior</h2><p>4 ejercicios · 13 series · ~45 min</p><button class="btn primary" onclick="openTrain()">▶ Comenzar entrenamiento</button></div>
+<h2 style="margin-top:22px">Resumen</h2><div class="grid"><div class="stat"><b id="w">0</b><span>Entrenamientos</span></div><div class="stat"><b id="v">0 kg</b><span>Volumen</span></div><div class="stat"><b id="s">0</b><span>Series</span></div><div class="stat"><b id="b">0 kg</b><span>Mejor peso</span></div></div>
+<div class="card"><h2>Próxima evaluación</h2><p>La evaluación de 15 días aparecerá cuando registremos tus primeros entrenamientos.</p></div>
+</main>
+
+<main id="train" class="hidden"><button class="btn light" onclick="go('home')">← Volver</button>
+<div class="card"><p id="counter">EJERCICIO 1 DE 4</p><h2 id="ename">Sentadilla con barra</h2><div class="video">▶<small>Video de técnica · próximamente</small></div>
+<p style="margin-top:11px"><b>Último:</b> <span id="prev">Sin registros</span></p>
+<table><thead><tr><th>Serie</th><th>Kg</th><th>Reps</th><th>✓</th></tr></thead><tbody id="sets"></tbody></table>
+<div class="timer">DESCANSO<strong id="clock">01:30</strong><button class="btn light" onclick="timerStart()">▶ Iniciar</button><button class="btn light" onclick="timerReset()">↺</button></div>
+<button class="btn dark" onclick="next()">Siguiente ejercicio →</button></div></main>
+
+<main id="routines" class="hidden"><h2>Mis rutinas</h2><div class="card"><div class="row"><div><h2>Día 1 — Tren inferior</h2><p>4 ejercicios · 13 series</p></div><span class="badge">Activa</span></div>
+<div class="exercise"><b>Sentadilla con barra</b><p>3 × 10 · 90 s</p></div><div class="exercise"><b>Hip Thrust</b><p>4 × 10 · 90 s</p></div><div class="exercise"><b>Peso muerto rumano</b><p>3 × 10 · 90 s</p></div><div class="exercise"><b>Prensa de piernas</b><p>3 × 12 · 90 s</p></div>
+<button class="btn dark" onclick="openTrain()">▶ Entrenar esta rutina</button></div><div class="card"><h2>Biblioteca de ejercicios</h2><p>Próximamente: videos, técnica, músculos, errores frecuentes y favoritos.</p></div></main>
+
+<main id="progress" class="hidden"><h2>Mi progreso</h2><div class="card"><p>RENDIMIENTO</p><h2 id="eval">Sin datos todavía</h2><p>Cuando acumulemos entrenamientos, FitTrack analizará volumen, peso, repeticiones y constancia.</p></div><div class="grid"><div class="stat"><b id="ps">0</b><span>Series</span></div><div class="stat"><b id="pv">0 kg</b><span>Volumen</span></div><div class="stat"><b id="pw">0</b><span>Entrenamientos</span></div><div class="stat"><b id="pb">0 kg</b><span>Mejor peso</span></div></div></main>
+
+<nav><button onclick="go('home')" class="active" id="n-home"><span class="ico">⌂</span>Inicio</button><button onclick="go('train')" id="n-train"><span class="ico">🏋️</span>Entrenar</button><button onclick="go('routines')" id="n-routines"><span class="ico">☷</span>Rutinas</button><button onclick="go('progress')" id="n-progress"><span class="ico">↗</span>Progreso</button></nav>
+</div>
+<script>
+const ex=[["Sentadilla con barra",3,10],["Hip Thrust",4,10],["Peso muerto rumano",3,10],["Prensa de piernas",3,12]];
+let cur=0,t=90,timer=null;
+const KEY="fittrack_data";
+function get(){return JSON.parse(localStorage.getItem(KEY)||'{"workouts":0,"volume":0,"sets":0,"best":0}')}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d));stats()}
+function stats(){let d=get();["w","pw"].forEach(x=>document.getElementById(x).textContent=d.workouts);["v","pv"].forEach(x=>document.getElementById(x).textContent=Math.round(d.volume)+" kg");["s","ps"].forEach(x=>document.getElementById(x).textContent=d.sets);["b","pb"].forEach(x=>document.getElementById(x).textContent=d.best+" kg")}
+function go(id){document.querySelectorAll("main").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));let n=document.getElementById("n-"+id);if(n)n.classList.add("active");window.scrollTo(0,0);stats()}
+function openTrain(){cur=0;render();go("train")}
+function render(){let e=ex[cur];document.getElementById("counter").textContent=`EJERCICIO ${cur+1} DE ${ex.length}`;document.getElementById("ename").textContent=e[0];let tb=document.getElementById("sets");tb.innerHTML="";for(let i=1;i<=e[1];i++)tb.innerHTML+=`<tr><td>${i}</td><td><input class="kg" type="number" value="40"></td><td><input class="rep" type="number" value="${e[2]}"></td><td><input class="ck" type="checkbox"></td></tr>`;timerReset()}
+function next(){let rows=[...document.querySelectorAll("#sets tr")];if(!rows.every(r=>r.querySelector(".ck").checked)){alert("Completa todas las series antes de continuar.");return}let d=get(),kg=rows.map(r=>+r.querySelector(".kg").value||0),rep=rows.map(r=>+r.querySelector(".rep").value||0),avg=kg.reduce((a,b)=>a+b,0)/kg.length;d.volume+=kg.reduce((a,b,i)=>a+b*rep[i],0);d.sets+=rows.length;d.best=Math.max(d.best,...kg);if(cur<ex.length-1){cur++;render()}else{d.workouts++;save(d);alert("🎉 Entrenamiento guardado.");go("home")}}
+function renderTimer(){document.getElementById("clock").textContent=String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0")}
+function timerStart(){if(timer)return;timer=setInterval(()=>{t--;renderTimer();if(t<=0){clearInterval(timer);timer=null;alert("⏱️ Descanso terminado.")}},1000)}
+function timerReset(){if(timer){clearInterval(timer);timer=null}t=90;renderTimer()}
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");stats();
+</script></body></html>
