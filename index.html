@@ -27,7 +27,7 @@
 
 <main id="routines" class="hidden"><h2>Mis rutinas</h2><div class="daytabs" id="dayTabs"></div><div id="routineDetail" class="card"></div><div class="card"><h2>Biblioteca de ejercicios</h2><p>Ahora tienes videos de técnica para los 23 ejercicios. Puedes abrirlos desde cada ejercicio antes o durante tu entrenamiento.</p></div></main>
 
-<main id="progress" class="hidden"><h2>Progreso</h2><div class="card"><h2>Historial</h2><div id="history"></div></div><div class="card"><h2>Evaluación de 15 días</h2><p id="evalProgress">Completa entrenamientos para construir tu primera evaluación.</p></div></main>
+<main id="progress" class="hidden"><h2>Progreso</h2><div class="card"><h2>Historial</h2><div id="history"></div><button class="btn dark" onclick="exportBackup()">⬇ Exportar respaldo</button><p id="backupStatus" class="muted" style="margin-top:10px">Exporta tus entrenamientos para guardarlos en Archivos.</p></div><div class="card"><h2>Evaluación de 15 días</h2><p id="evalProgress">Completa entrenamientos para construir tu primera evaluación.</p></div></main>
 
 <nav><button id="navHome" class="active" onclick="go('home')"><span class="ico">⌂</span>Inicio</button><button id="navTrain" onclick="openTrain(todayDay)"><span class="ico">▶</span>Entrenar</button><button id="navRoutines" onclick="go('routines')"><span class="ico">▦</span>Rutinas</button><button id="navProgress" onclick="go('progress')"><span class="ico">↗</span>Progreso</button></nav>
 </div>
@@ -112,6 +112,43 @@ function finishWorkout(){const r=routines[selectedDay];data.workouts.unshift({da
 function findLast(name){for(const w of data.workouts){const e=w.exercises.find(x=>x.name===name);if(e&&e.rows.some(r=>r.done))return e;}return null;}
 function renderRoutines(){const tabs=document.getElementById('dayTabs');tabs.innerHTML='';for(let d=1;d<=4;d++){const b=document.createElement('button');b.textContent='Día '+d;b.className=d===selectedDay?'active':'';b.onclick=()=>{selectedDay=d;renderRoutines();};tabs.appendChild(b);}const r=routines[selectedDay];document.getElementById('routineDetail').innerHTML='<div class="row"><div><h2>Día '+selectedDay+' — '+r.name+'</h2><p>'+r.meta+'</p></div><span class="badge">V1</span></div><div class="routine-list">'+r.exercises.map(e=>'<div class="exercise"><b>'+e.name+'</b><p>'+e.sets+' × '+e.min+'–'+e.max+' · '+e.rest+' s descanso</p>'+videoButton(e.name)+'</div>').join('')+'</div><div class="notice">Cardio: 10 minutos al finalizar.</div><button class="btn dark" onclick="openTrain('+selectedDay+')">▶ Entrenar este día</button>';}
 function renderProgress(){const box=document.getElementById('history');if(!data.workouts.length){box.innerHTML='<p>Aún no hay entrenamientos guardados.</p>';}else{box.innerHTML=data.workouts.slice(0,10).map(w=>{const date=new Date(w.date).toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});const done=w.exercises.reduce((n,e)=>n+e.rows.filter(x=>x.done).length,0);return '<div class="history-item"><b>'+date+' · Día '+w.day+' — '+w.routine+'</b><p><span class="pill">'+w.version+'</span><span class="pill">'+done+' series</span><span class="pill">Cardio '+w.cardioMinutes+' min</span></p></div>';}).join('');}const since=data.workouts.length?Math.min(data.workouts.length,15):0;document.getElementById('evalProgress').textContent=since?'Hay '+since+' sesión(es) registradas. Al completar 15 días de seguimiento revisaremos la V1 y definiremos ajustes para V2.':'Completa entrenamientos para construir tu primera evaluación.';}
+async function exportBackup(){
+  const status=document.getElementById('backupStatus');
+  try{
+    const backup={
+      app:'FitTrack',
+      formatVersion:1,
+      exportedAt:new Date().toISOString(),
+      storageKey:'fittrack_data_v2',
+      data:data
+    };
+    const json=JSON.stringify(backup,null,2);
+    const stamp=new Date().toISOString().slice(0,10);
+    const filename='fittrack-respaldo-'+stamp+'.json';
+    const file=new File([json],filename,{type:'application/json'});
+    if(navigator.canShare && navigator.canShare({files:[file]}) && navigator.share){
+      await navigator.share({files:[file],title:'Respaldo de FitTrack'});
+      if(status)status.textContent='Se abrió la hoja para compartir. Elige “Guardar en Archivos” para conservar el respaldo.';
+    }else{
+      const blob=new Blob([json],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download=filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),3000);
+      if(status)status.textContent='Respaldo generado. Busca el archivo JSON en Descargas y guárdalo en “En mi iPhone”.';
+    }
+  }catch(error){
+    if(error && error.name==='AbortError'){
+      if(status)status.textContent='Exportación cancelada. Tus entrenamientos siguen guardados en FitTrack.';
+    }else{
+      if(status)status.textContent='No se pudo exportar. Inténtalo de nuevo desde Safari.';
+    }
+  }
+}
 function timerStart(){if(timer)return;timer=setInterval(()=>{seconds--;updateClock();if(seconds<=0){clearInterval(timer);timer=null;seconds=0;updateClock();}},1000);}
 function timerReset(){if(timer){clearInterval(timer);timer=null;}seconds=90;updateClock();}
 function updateClock(){document.getElementById('clock').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');}
