@@ -25,7 +25,7 @@
 <div class="timer">DESCANSO<strong id="clock">01:30</strong><button class="btn light" onclick="timerStart()">▶ Iniciar</button><button class="btn light" onclick="timerReset()">↺</button></div>
 <button class="btn dark" id="nextBtn" onclick="next()">Siguiente ejercicio →</button></div></main>
 
-<main id="routines" class="hidden"><h2>Mis rutinas</h2><div class="daytabs" id="dayTabs"></div><div id="routineDetail" class="card"></div><div class="card"><h2>Biblioteca de ejercicios</h2><p>Ahora tienes videos de técnica para los 23 ejercicios. Puedes abrirlos desde cada ejercicio antes o durante tu entrenamiento.</p></div></main>
+<main id="routines" class="hidden"><h2>Mis rutinas</h2><div class="daytabs" id="dayTabs"></div><div id="routineDetail" class="card"></div><div class="card"><h2>Biblioteca de ejercicios</h2><p>Ahora tienes videos directos de técnica para tus ejercicios. Puedes abrirlos desde cada ejercicio antes o durante tu entrenamiento.</p></div></main>
 
 <main id="progress" class="hidden"><h2>Progreso</h2><div class="card"><h2>Historial</h2><div id="history"></div><button class="btn dark" onclick="exportBackup()">⬇ Exportar respaldo</button><p id="backupStatus" class="muted" style="margin-top:10px">Exporta tus entrenamientos para guardarlos en Archivos.</p></div><div class="card"><h2>Evaluación de 15 días</h2><p id="evalProgress">Completa entrenamientos para construir tu primera evaluación.</p></div></main>
 
@@ -33,36 +33,37 @@
 </div>
 <script>
 
-const techniqueQueries={
- 'Sentadilla':'sentadilla con barra técnica ejercicio',
- 'Prensa de piernas':'prensa de piernas técnica ejercicio',
- 'Extensión de piernas':'extensión de piernas máquina técnica ejercicio',
- 'Curl femoral':'curl femoral máquina técnica ejercicio',
- 'Elevación de pantorrillas':'elevación de pantorrillas máquina técnica ejercicio',
- 'Press de hombros':'press de hombros técnica ejercicio',
- 'Elevaciones laterales':'elevaciones laterales técnica ejercicio',
- 'Reverse fly / pájaros':'reverse fly pájaros técnica ejercicio',
- 'Elevación lateral en polea o máquina':'elevación lateral polea máquina técnica ejercicio',
- 'Crunch en máquina o polea':'crunch máquina polea técnica ejercicio',
- 'Plancha':'plancha abdominal técnica ejercicio',
- 'Hip Thrust':'hip thrust técnica ejercicio',
- 'Peso muerto rumano':'peso muerto rumano técnica ejercicio',
- 'Patada de glúteo':'patada de glúteo polea máquina técnica ejercicio',
- 'Abducción':'abducción máquina técnica ejercicio',
- 'Puente de glúteo / máquina':'puente de glúteo máquina técnica ejercicio',
- 'Jalón al pecho':'jalón al pecho técnica ejercicio',
- 'Remo sentado':'remo sentado técnica ejercicio',
- 'Remo unilateral o máquina':'remo unilateral máquina técnica ejercicio',
- 'Curl de bíceps':'curl de bíceps técnica ejercicio',
- 'Tríceps en polea':'tríceps en polea técnica ejercicio',
- 'Elevación de rodillas / abdomen':'elevación de rodillas abdomen técnica ejercicio'
+const techniqueVideos={
+ 'Sentadilla':'https://www.youtube.com/watch?v=eraNxbPlhWw',
+ 'Prensa de piernas':'https://www.youtube.com/watch?v=D1FvjYNX9QI',
+ 'Extensión de piernas':'https://www.youtube.com/watch?v=PVAwJf2liSY',
+ 'Curl femoral':'https://www.youtube.com/watch?v=kU6YEyUzPcA',
+ 'Elevación de pantorrillas':'https://www.youtube.com/watch?v=ixiZy3kLfNU',
+ 'Press de hombros':'https://www.youtube.com/watch?v=JAsfbXqp9dI',
+ 'Elevaciones laterales':'https://www.youtube.com/watch?v=bQeQRxpGOXk',
+ 'Reverse fly / pájaros':'https://www.youtube.com/watch?v=T41aqtopLEw',
+ 'Elevación lateral en polea o máquina':'https://www.youtube.com/watch?v=amKt4HO3TPw',
+ 'Crunch en máquina o polea':'https://www.youtube.com/watch?v=tudCgmuPS4w',
+ 'Plancha':'https://www.youtube.com/watch?v=61A2oTh1OV8',
+ 'Hip Thrust':'https://www.youtube.com/watch?v=5gcunl9ul6M',
+ 'Peso muerto rumano':'https://www.youtube.com/watch?v=SOYfVYuZ_vQ',
+ 'Patada de glúteo':'https://www.youtube.com/watch?v=3KdH7vkEW6s',
+ 'Abducción':'https://www.youtube.com/watch?v=xTHl7omVigM',
+ 'Puente de glúteo / máquina':'https://www.youtube.com/watch?v=Mli3p6MHJCI',
+ 'Jalón al pecho':'https://www.youtube.com/watch?v=kpG7Y97DjZg',
+ 'Remo sentado':'https://www.youtube.com/watch?v=nwdptbhYjTw',
+ 'Remo unilateral o máquina':'https://www.youtube.com/watch?v=1TKr1BhSbVY',
+ 'Curl de bíceps':'https://www.youtube.com/watch?v=3WlewwTqkfc',
+ 'Tríceps en polea':'https://www.youtube.com/watch?v=V72pvu9AEY0',
+ 'Elevación de rodillas / abdomen':'https://www.youtube.com/watch?v=kW77FD9uFAg'
 };
 function videoUrl(name){
-  const q=techniqueQueries[name]||((name||'')+' técnica ejercicio');
-  return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
+  return techniqueVideos[name] || '';
 }
 function videoButton(name,large=false){
-  return '<a class="videoLink '+(large?'videoLarge':'')+'" href="'+videoUrl(name)+'" target="_blank" rel="noopener">▶ Ver video de técnica</a>';
+  const url=videoUrl(name);
+  if(!url) return '<span class="videoLink">Video próximamente</span>';
+  return '<a class="videoLink '+(large?'videoLarge':'')+'" href="'+url+'" target="_blank" rel="noopener noreferrer">▶ Ver técnica</a>';
 }
 
 const routines={
