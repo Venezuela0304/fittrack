@@ -15,7 +15,7 @@
 <div class="hero"><p>ENTRENAMIENTO DE HOY</p><h2 id="todayTitle" style="color:white;margin-top:7px">Día 2 — Hombros + abdomen</h2><p id="todayMeta">6 ejercicios · 17 series · ~65 min</p><button class="btn primary" onclick="openTrain(todayDay)">▶ Comenzar entrenamiento</button></div>
 <h2 style="margin-top:22px">Resumen</h2><div class="grid"><div class="stat"><b id="w">0</b><span>Entrenamientos</span></div><div class="stat"><b id="v">0 kg</b><span>Volumen registrado</span></div><div class="stat"><b id="s">0</b><span>Series</span></div><div class="stat"><b id="b">0 kg</b><span>Mayor carga</span></div></div>
 <div class="card"><h2>Próxima evaluación</h2><p id="evalText">La evaluación de 15 días aparecerá cuando registremos tus primeros entrenamientos.</p></div>
-<div class="card"><h2>Semana</h2><p>Martes: piernas · Miércoles: hombros + abdomen · Jueves: glúteos · Viernes: espalda + brazos + abdomen</p><div class="notice">Cardio: 10 minutos al finalizar cada sesión.</div></div>
+<div class="card"><h2>Semana</h2><p>Martes: piernas · Miércoles: hombros + abdomen · Jueves: glúteos + piernas · Viernes: espalda + bíceps · Sábado: pecho + tríceps + abdomen</p><div class="notice">Cardio: 10 minutos al finalizar cada sesión.</div></div>
 </main>
 
 <main id="train" class="hidden"><button class="btn light" onclick="go('home')">← Volver</button>
@@ -34,7 +34,7 @@
 <script>
 
 const techniqueVideos={
- 'Sentadilla':'https://www.youtube.com/watch?v=eraNxbPlhWw',
+ 'Sentadilla':'https://www.youtube.com/watch?v=xFMShb8Zv2o',
  'Prensa de piernas':'https://www.youtube.com/watch?v=D1FvjYNX9QI',
  'Extensión de piernas':'https://www.youtube.com/watch?v=PVAwJf2liSY',
  'Curl femoral':'https://www.youtube.com/watch?v=kU6YEyUzPcA',
@@ -42,10 +42,10 @@ const techniqueVideos={
  'Press de hombros':'https://www.youtube.com/watch?v=JAsfbXqp9dI',
  'Elevaciones laterales':'https://www.youtube.com/watch?v=bQeQRxpGOXk',
  'Reverse fly / pájaros':'https://www.youtube.com/watch?v=T41aqtopLEw',
- 'Elevación lateral en polea o máquina':'https://www.youtube.com/watch?v=amKt4HO3TPw',
+ 'Elevación lateral en polea o máquina':'https://www.youtube.com/watch?v=OXLuvI4GF7E',
  'Crunch en máquina o polea':'https://www.youtube.com/watch?v=tudCgmuPS4w',
- 'Plancha':'https://www.youtube.com/watch?v=61A2oTh1OV8',
- 'Hip Thrust':'https://www.youtube.com/watch?v=5gcunl9ul6M',
+ 'Plancha':'https://www.youtube.com/watch?v=zfY5XXa26ug',
+ 'Hip Thrust':'https://www.youtube.com/watch?v=aMntMBkmv0g',
  'Peso muerto rumano':'https://www.youtube.com/watch?v=SOYfVYuZ_vQ',
  'Patada de glúteo':'https://www.youtube.com/watch?v=3KdH7vkEW6s',
  'Abducción':'https://www.youtube.com/watch?v=xTHl7omVigM',
@@ -53,7 +53,7 @@ const techniqueVideos={
  'Jalón al pecho':'https://www.youtube.com/watch?v=kpG7Y97DjZg',
  'Remo sentado':'https://www.youtube.com/watch?v=nwdptbhYjTw',
  'Remo unilateral o máquina':'https://www.youtube.com/watch?v=1TKr1BhSbVY',
- 'Curl de bíceps':'https://www.youtube.com/watch?v=3WlewwTqkfc',
+ 'Curl de bíceps':'https://www.youtube.com/watch?v=LQcQNJiVY24',
  'Tríceps en polea':'https://www.youtube.com/watch?v=V72pvu9AEY0',
  'Elevación de rodillas / abdomen':'https://www.youtube.com/watch?v=kW77FD9uFAg'
 };
@@ -62,8 +62,8 @@ function videoUrl(name){
 }
 function videoButton(name,large=false){
   const url=videoUrl(name);
-  if(!url) return '<span class="videoLink">Video próximamente</span>';
-  return '<a class="videoLink '+(large?'videoLarge':'')+'" href="'+url+'" target="_blank" rel="noopener noreferrer">▶ Ver técnica</a>';
+  const target=url || ('https://www.youtube.com/results?search_query='+encodeURIComponent(name+' técnica correcta ejercicio'));
+  return '<a class="videoLink '+(large?'videoLarge':'')+'" href="'+target+'" target="_blank" rel="noopener noreferrer">▶ '+(url?'Ver técnica':'Buscar técnica')+'</a>';
 }
 
 const routines={
@@ -82,26 +82,33 @@ const routines={
  {name:'Crunch en máquina o polea',sets:3,min:10,max:15,rest:60,start:''},
  {name:'Plancha',sets:3,min:10,max:15,rest:60,start:''}
 ]},
-3:{name:'Glúteos',meta:'5 ejercicios · 16 series · ~65 min',exercises:[
+3:{name:'Glúteos + piernas',meta:'5 ejercicios · 16 series · ~65 min',exercises:[
  {name:'Hip Thrust',sets:4,min:10,max:15,rest:90,start:40},
- {name:'Peso muerto rumano',sets:3,min:10,max:15,rest:90,start:''},
- {name:'Patada de glúteo',sets:3,min:10,max:15,rest:75,start:6},
- {name:'Abducción',sets:3,min:10,max:15,rest:60,start:46},
- {name:'Puente de glúteo / máquina',sets:3,min:10,max:15,rest:75,start:''}
+ {name:'Peso muerto rumano',sets:3,min:10,max:12,rest:90,start:''},
+ {name:'Zancada atrás con mancuernas',sets:3,min:10,max:12,rest:75,start:''},
+ {name:'Abducción',sets:3,min:12,max:15,rest:60,start:46},
+ {name:'Aducción',sets:3,min:12,max:15,rest:60,start:''}
 ]},
-4:{name:'Espalda + brazos + abdomen',meta:'7 ejercicios · 20 series · ~65 min',exercises:[
+4:{name:'Espalda + bíceps',meta:'5 ejercicios · 13 series · ~60 min',exercises:[
  {name:'Jalón al pecho',sets:3,min:10,max:15,rest:90,start:10},
- {name:'Remo sentado',sets:3,min:10,max:15,rest:90,start:11},
- {name:'Remo unilateral o máquina',sets:2,min:10,max:15,rest:75,start:''},
- {name:'Curl de bíceps',sets:3,min:10,max:15,rest:60,start:11},
- {name:'Tríceps en polea',sets:3,min:10,max:15,rest:60,start:11},
- {name:'Crunch en máquina o polea',sets:3,min:10,max:15,rest:60,start:''},
- {name:'Elevación de rodillas / abdomen',sets:3,min:10,max:15,rest:60,start:''}
+ {name:'Remo sentado en polea o máquina',sets:3,min:10,max:15,rest:90,start:11},
+ {name:'Remo unilateral con mancuerna',sets:2,min:10,max:15,rest:75,start:''},
+ {name:'Curl de bíceps en máquina',sets:3,min:10,max:15,rest:60,start:11},
+ {name:'Curl martillo con mancuernas',sets:2,min:10,max:12,rest:60,start:''}
+]},
+5:{name:'Pecho + tríceps + abdomen',meta:'6 ejercicios · 15 series · ~60 min',exercises:[
+ {name:'Press de pecho en máquina',sets:3,min:10,max:15,rest:90,start:''},
+ {name:'Aperturas Pec Deck',sets:2,min:10,max:15,rest:60,start:''},
+ {name:'Extensión de tríceps con cuerda',sets:3,min:10,max:15,rest:60,start:''},
+ {name:'Extensión de tríceps sobre cabeza',sets:2,min:10,max:12,rest:60,start:''},
+ {name:'Crunch en máquina',sets:3,min:10,max:15,rest:60,start:''},
+ {name:'Dead Bug',sets:2,min:10,max:10,rest:60,start:''}
 ]}}
+
 let data=JSON.parse(localStorage.getItem('fittrack_data_v2')||'{"workouts":[],"version":"V1"}');
 if(!data.workouts)data.workouts=[];
 let selectedDay=2,currentExercise=0,sessionRows=[],timer=null,seconds=90;
-const todayDay=(new Date().getDay()>=2&&new Date().getDay()<=5)?new Date().getDay()-1:1;
+const todayDay=(new Date().getDay()>=2&&new Date().getDay()<=6)?new Date().getDay()-1:1;
 function save(){localStorage.setItem('fittrack_data_v2',JSON.stringify(data));}
 function go(id){['home','train','routines','progress'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));['Home','Train','Routines','Progress'].forEach(x=>document.getElementById('nav'+x).classList.toggle('active',x.toLowerCase()===id));if(id==='home')renderHome();if(id==='routines')renderRoutines();if(id==='progress')renderProgress();}
 function renderHome(){const r=routines[todayDay];document.getElementById('todayTitle').textContent='Día '+todayDay+' — '+r.name;document.getElementById('todayMeta').textContent=r.meta;const w=data.workouts;let vol=0,sets=0,best=0;w.forEach(s=>s.exercises.forEach(e=>e.rows.forEach(row=>{const kg=+row.kg||0,reps=+row.reps||0;if(row.done){vol+=kg*reps;sets++;best=Math.max(best,kg)}})));document.getElementById('w').textContent=w.length;document.getElementById('v').textContent=Math.round(vol)+' kg';document.getElementById('s').textContent=sets;document.getElementById('b').textContent=best+' kg';document.getElementById('evalText').textContent=w.length?'Tienes '+w.length+' entrenamiento(s) guardado(s). La evaluación de 15 días se activará con suficiente historial.':'La evaluación de 15 días aparecerá cuando registremos tus primeros entrenamientos.';}
@@ -109,10 +116,10 @@ function openTrain(day){selectedDay=day||todayDay;currentExercise=0;sessionRows=
 function renderExercise(){const r=routines[selectedDay],e=r.exercises[currentExercise];document.getElementById('counter').textContent='EJERCICIO '+(currentExercise+1)+' DE '+r.exercises.length;document.getElementById('ename').textContent=e.name;document.getElementById('target').textContent=e.sets+' × '+e.min+'–'+e.max+' · descanso '+e.rest+' s';document.getElementById('videoBox').innerHTML=videoButton(e.name,true);document.getElementById('nextBtn').textContent=currentExercise===r.exercises.length-1?'Guardar entrenamiento ✓':'Siguiente ejercicio →';const prev=findLast(e.name);document.getElementById('prev').textContent=prev?prev.rows.map((x,i)=>x.done?(x.kg+' kg × '+x.reps):'—').filter(x=>x!=='—').join(' · ')||'Sin series completadas':'Sin registros';const tbody=document.getElementById('sets');tbody.innerHTML='';for(let i=0;i<e.sets;i++){const old=(sessionRows[currentExercise]&&sessionRows[currentExercise][i])||{kg:e.start??'',reps:'',done:false};const tr=document.createElement('tr');tr.innerHTML='<td>'+(i+1)+'</td><td><input type="number" min="0" step="0.5" inputmode="decimal" value="'+old.kg+'" aria-label="Kg"></td><td><input type="number" min="0" max="100" step="1" inputmode="numeric" value="'+old.reps+'" aria-label="Repeticiones"></td><td><input class="check" type="checkbox" '+(old.done?'checked':'')+' aria-label="Serie completada"></td>';tbody.appendChild(tr);}timerReset();}
 function readRows(){const rows=[];document.querySelectorAll('#sets tr').forEach(tr=>{const ins=tr.querySelectorAll('input');rows.push({kg:ins[0].value,reps:ins[1].value,done:ins[2].checked});});sessionRows[currentExercise]=rows;}
 function next(){readRows();const e=routines[selectedDay].exercises[currentExercise];if(!sessionRows[currentExercise].some(r=>r.done)){alert('Marca al menos una serie como completada antes de continuar.');return;}if(currentExercise<routines[selectedDay].exercises.length-1){currentExercise++;renderExercise();}else{finishWorkout();}}
-function finishWorkout(){const r=routines[selectedDay];data.workouts.unshift({date:new Date().toISOString(),day:selectedDay,routine:r.name,version:'V1',cardioMinutes:10,exercises:r.exercises.map((e,i)=>({name:e.name,rows:sessionRows[i]||[]}))});save();alert('Entrenamiento guardado correctamente.');go('progress');}
+function finishWorkout(){const r=routines[selectedDay];data.workouts.unshift({date:new Date().toISOString(),day:selectedDay,routine:r.name,version:'V2',cardioMinutes:10,exercises:r.exercises.map((e,i)=>({name:e.name,rows:sessionRows[i]||[]}))});save();alert('Entrenamiento guardado correctamente.');go('progress');}
 function findLast(name){for(const w of data.workouts){const e=w.exercises.find(x=>x.name===name);if(e&&e.rows.some(r=>r.done))return e;}return null;}
-function renderRoutines(){const tabs=document.getElementById('dayTabs');tabs.innerHTML='';for(let d=1;d<=4;d++){const b=document.createElement('button');b.textContent='Día '+d;b.className=d===selectedDay?'active':'';b.onclick=()=>{selectedDay=d;renderRoutines();};tabs.appendChild(b);}const r=routines[selectedDay];document.getElementById('routineDetail').innerHTML='<div class="row"><div><h2>Día '+selectedDay+' — '+r.name+'</h2><p>'+r.meta+'</p></div><span class="badge">V1</span></div><div class="routine-list">'+r.exercises.map(e=>'<div class="exercise"><b>'+e.name+'</b><p>'+e.sets+' × '+e.min+'–'+e.max+' · '+e.rest+' s descanso</p>'+videoButton(e.name)+'</div>').join('')+'</div><div class="notice">Cardio: 10 minutos al finalizar.</div><button class="btn dark" onclick="openTrain('+selectedDay+')">▶ Entrenar este día</button>';}
-function renderProgress(){const box=document.getElementById('history');if(!data.workouts.length){box.innerHTML='<p>Aún no hay entrenamientos guardados.</p>';}else{box.innerHTML=data.workouts.slice(0,10).map(w=>{const date=new Date(w.date).toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});const done=w.exercises.reduce((n,e)=>n+e.rows.filter(x=>x.done).length,0);return '<div class="history-item"><b>'+date+' · Día '+w.day+' — '+w.routine+'</b><p><span class="pill">'+w.version+'</span><span class="pill">'+done+' series</span><span class="pill">Cardio '+w.cardioMinutes+' min</span></p></div>';}).join('');}const since=data.workouts.length?Math.min(data.workouts.length,15):0;document.getElementById('evalProgress').textContent=since?'Hay '+since+' sesión(es) registradas. Al completar 15 días de seguimiento revisaremos la V1 y definiremos ajustes para V2.':'Completa entrenamientos para construir tu primera evaluación.';}
+function renderRoutines(){const tabs=document.getElementById('dayTabs');tabs.innerHTML='';for(let d=1;d<=5;d++){const b=document.createElement('button');b.textContent='Día '+d;b.className=d===selectedDay?'active':'';b.onclick=()=>{selectedDay=d;renderRoutines();};tabs.appendChild(b);}const r=routines[selectedDay];document.getElementById('routineDetail').innerHTML='<div class="row"><div><h2>Día '+selectedDay+' — '+r.name+'</h2><p>'+r.meta+'</p></div><span class="badge">V2</span></div><div class="routine-list">'+r.exercises.map(e=>'<div class="exercise"><b>'+e.name+'</b><p>'+e.sets+' × '+e.min+'–'+e.max+' · '+e.rest+' s descanso</p>'+videoButton(e.name)+'</div>').join('')+'</div><div class="notice">Cardio: 10 minutos al finalizar.</div><button class="btn dark" onclick="openTrain('+selectedDay+')">▶ Entrenar este día</button>';}
+function renderProgress(){const box=document.getElementById('history');if(!data.workouts.length){box.innerHTML='<p>Aún no hay entrenamientos guardados.</p>';}else{box.innerHTML=data.workouts.slice(0,10).map(w=>{const date=new Date(w.date).toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});const done=w.exercises.reduce((n,e)=>n+e.rows.filter(x=>x.done).length,0);return '<div class="history-item"><b>'+date+' · Día '+w.day+' — '+w.routine+'</b><p><span class="pill">'+w.version+'</span><span class="pill">'+done+' series</span><span class="pill">Cardio '+w.cardioMinutes+' min</span></p></div>';}).join('');}const since=data.workouts.length?Math.min(data.workouts.length,15):0;document.getElementById('evalProgress').textContent=since?'Hay '+since+' sesión(es) registradas. Al completar 15 días de seguimiento revisaremos tu progreso y definiremos ajustes.':'Completa entrenamientos para construir tu primera evaluación.';}
 async function exportBackup(){
   const status=document.getElementById('backupStatus');
   try{
